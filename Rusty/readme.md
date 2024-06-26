@@ -151,3 +151,50 @@ fn main() {
     println!("x: {}, y: {}", x, y);
 }
 ```
+
+### String & string_literal(&str)
+
+- `String` is a growable, heap-allocated data structure.
+- `&str` is a fixed-size, immutable view into a string slice.
+
+```rust
+fn main() {
+    let mut s1 = String::from("Hello, world!!!");  // String
+    s1.push_str(" What's Up ?"); // mutable
+    let s2: &str = "Hello, world!";  // &str
+    s2 = "Adii";
+    println!("s1: {}, s2: {}", s1, s2);
+}
+```
+
+### Tuple
+
+A tuple is a collection of values of different types.
+
+```rust
+fn main() {
+    let emp_info: (&str, u8, bool) = ("Adii", 20, true);
+    let _emp_name = emp_info.0;   // "_" prifix if unused
+    let _emp_age = emp_info.1;
+    let _emp_hired = emp_info.2;
+    // Distructuring
+    let (employee_name, employee_age, employee_hired) = emp_info;
+    println!("Employee Name: {}\nEmployee Age: {}\nEmployee Hired: {}", employee_name, employee_age, employee_hired);
+}
+```
+### Functions
+
+Functions are a set of statements grouped together to perform a specific task.
+
+```rust
+fn main() {
+    let n1 = 52;
+    let n2 = 29;
+    let result = add_num(n1, n2);
+    println!("Sum of {} and {} = {}", n1, n2, result);
+}
+
+fn add_num(num1: u16, num2: u16) -> u16 {
+    return num1 + num2;
+}
+```
