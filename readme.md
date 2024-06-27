@@ -182,6 +182,7 @@ fn main() {
     println!("Employee Name: {}\nEmployee Age: {}\nEmployee Hired: {}", employee_name, employee_age, employee_hired);
 }
 ```
+
 ### Functions
 
 Functions are a set of statements grouped together to perform a specific task.
@@ -196,5 +197,94 @@ fn main() {
 
 fn add_num(num1: u16, num2: u16) -> u16 {
     return num1 + num2;
+}
+```
+
+### Ownership
+
+##### Why ownership?
+
+In C and C++, we have to manually manage memory allocation and deallocation using `calloc()`, `malloc()`, `relloc()`, `free()`. This can lead to memory leaks, dangling pointers, and double frees.
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+   // Allocate memory
+   int *ptr = (int *)malloc(sizeof(int));
+   *ptr = 10;
+   free(ptr);
+   printf("%d\n", *ptr);  // Dangling pointer
+   // This Dangling pointer will still point to the memory location
+   free(ptr); // Double free
+   // This will cause an error
+   return 0;
+}
+```
+
+In Python, Java, and JavaScript, the garbage collector automatically manages memory allocation and deallocation. This can lead to performance issues beacuse the garbage collector runs in the background.
+
+```python
+import gc
+class Test:
+    def __init__(self):
+        print("Object created")
+    def __del__(self):
+        print("Object deleted")
+t = Test()
+del t
+gc.collect()  # Explicitly call the garbage collector
+```
+Rust uses a concept called ownership to manage memory allocation and deallocation. Ownership is a set of rules that the compiler checks at compile time.
+
+##### Heap and Stack memory
+
+- Stack: Fixed size memory (eg. - `&str`)
+   1. Size of memory to be allocated is known at compile time.
+   2. Memory is allocated and deallocated are Faster.
+   
+- Heap: Dynamic size memory (eg. - `String`)
+   1. Size of memory to be allocated is known at runtime.
+   2. Memory is allocated and deallocated are slower.
+
+##### Ownership Rules
+
+1. Each value in Rust has a variable that's called its owner.
+2. There can only be one owner at a time.
+3. When the owner goes out of scope, the value will be dropped.
+
+```rust
+fn main() {
+    let s1 = String::from("Hello, world!");  // s1 is the owner of the string
+    let s2 = s1;  // s2 is the owner of the string
+    // println!("{}", s1);  // Error
+    println!("{}", s2);
+}
+```
+
+##### Clone
+
+To create a deep copy of the data on the heap, we can use the `clone()` method.
+
+```rust
+fn main() {
+    let s1 = String::from("Hello, world!");
+    let mut s2 = s1.clone();
+    println!("s1: {}, s2: {}", s1, s2); // output: s1: Hello, world!, s2: Hello, world!
+    s2 = "Adii".to_string();
+    println!("s1: {}, s2: {}", s1, s2); // output: s1: Hello, world!, s2: Adii
+}
+
+```
+
+##### Copy
+
+For stack-only data, the data is copied instead of moved.
+
+```rust
+fn main() {
+    let x = 10;
+    let y = x;
+    println!("x: {}, y: {}", x, y);
 }
 ```
