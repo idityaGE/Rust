@@ -379,15 +379,16 @@ fn get_length(s: String) -> usize {
    return s.len();
 }
 ```
-##### Borrowing
+
+##### Borrowing [ Reference ]
 
 Borrowing is a way to pass a reference, instead of transferring ownership.
 
 ```rust
 fn main() {
    let s1 = String::from("Hello, world!");
-   let len = get_length(&s1); // Passing reference 
-   // 
+   let len = get_length(&s1); // Passing reference
+   //
    println!("Length of the string '{}' is {}", s1, len);
 }
 
@@ -396,4 +397,49 @@ fn get_length(s: &String) -> usize {
 }
 ```
 
+##### Mutable Reference
 
+To modify the value of a reference, we need to pass a mutable reference.
+
+```rust
+fn main() {
+   let mut s1 = String::from("Hello, world!");
+   modify_string(&mut s1); // Passing mutable reference
+   println!("Modified string: {}", s1);
+}
+
+fn modify_string(s: &mut String) {
+   s.push_str(" What's Up?");
+}
+```
+
+##### Rules of References
+
+1. At any given time, you can have either one mutable reference or any number of immutable references.
+2. References must always be valid.
+
+```rust
+fn main() {
+    let mut s = String::from("Hello, world!");
+    let r1 = &s;  // Immutable reference
+    let r2 = &s;  // Immutable reference
+    // let r3 = &mut s;  // Error 
+    println!("r1: {}, r2: {}", r1, r2);
+}
+```
+
+##### Dangling References
+
+A dangling reference is a reference that points to an invalid memory location.
+
+```rust
+fn main() {
+    let s = String::from("Hello, world!");
+    let r = get_reference(&s);
+    println!("{}", r);
+}
+
+fn get_reference(s: &String) -> &String {
+    return s;
+}
+```
