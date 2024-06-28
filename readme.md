@@ -235,17 +235,17 @@ t = Test()
 del t
 gc.collect()  # Explicitly call the garbage collector
 ```
+
 Rust uses a concept called ownership to manage memory allocation and deallocation. Ownership is a set of rules that the compiler checks at compile time.
 
 ##### Heap and Stack memory
 
 - Stack: Fixed size memory (eg. - `&str`)
-   1. Size of memory to be allocated is known at compile time.
-   2. Memory is allocated and deallocated are Faster.
-   
+  1.  Size of memory to be allocated is known at compile time.
+  2.  Memory is allocated and deallocated are Faster.
 - Heap: Dynamic size memory (eg. - `String`)
-   1. Size of memory to be allocated is known at runtime.
-   2. Memory is allocated and deallocated are slower.
+  1.  Size of memory to be allocated is known at runtime.
+  2.  Memory is allocated and deallocated are slower.
 
 ##### Ownership Rules
 
@@ -269,7 +269,7 @@ To create a deep copy of the data on the heap, we can use the `clone()` method.
 ```rust
 fn main() {
     let s1 = String::from("Hello, world!");
-    let mut s2 = s1.clone();
+    let mut s2 = s1.clone();  // but this is an expensive operation beacuse it will create new memory
     println!("s1: {}, s2: {}", s1, s2); // output: s1: Hello, world!, s2: Hello, world!
     s2 = "Adii".to_string();
     println!("s1: {}, s2: {}", s1, s2); // output: s1: Hello, world!, s2: Adii
@@ -286,6 +286,113 @@ fn main() {
     let x = 10;
     let y = x;
     println!("x: {}, y: {}", x, y);
+}
+```
+
+##### Ownership and Functions
+
+when we pass a heap memory variable (pointer) to a function, the ownership of the variable is moved to the function.
+
+> Note: This only happens with heap memory variables.
+
+```rust
+fn main() {
+    let s1 = String::from("Hello, world!");
+    let s2 = take_ownership(s1);  // ownership of s1 is moved to the function take_ownership variable s
+    // println!("{}", s1);  // Error
+    println!("{}", s2); // take_ownership will return the ownership of s to s2
+}
+
+fn take_ownership(s: String) -> String {
+    println!("{}", s);
+    return s; // when the function returns, the ownership of s is moved to the calling function
+}
+```
+
+Some Other Examples:
+
+```rust
+fn main() {
+    let s1 = String::from("Hello, world!");
+    let s2 = take_ownership(s1);
+    println!("{}", s2);
+    let x = 10;
+    let y = add_num(x); // x is copied [ copy trait is implemented ]
+    println!("x: {}, y: {}", x, y);
+}
+
+fn take_ownership(s: String) -> String {
+    println!("{}", s);
+    return s;
+}
+
+fn add_num(num: u16) -> u16 {
+    return num + 10;
+}
+```
+
+###### Problem with ownership transfer
+
+Sometimes we need to use the variable after passing it to a function.
+
+```rust
+fn main() {
+   let s1 = String::from("Hello, world!");
+   let len = get_length(s1); // ownership gets transferred to the function
+   println!("Length of the string '{}' is {}", s1, len); // Error
+   // s1 is not available here because ownership is transferred to the function
+}
+
+fn get_length(s: String) -> usize {
+    return s.len();
+}
+```
+
+to solve this problem, their are three ways:
+
+1. Using `Tuple` // not recommended
+2. Using `clone()` // expensive operation
+3. Using `Reference` // recommended
+
+```rust
+fn main() {
+   let s1 = String::from("Hello, world!");
+   let (s2, len) = get_length(s1); // Destructuring the tuple
+   println!("Length of the string '{}' is {}", s2, len);
+}
+
+fn get_length(s: String) -> (String, usize) {
+   let len = s.len();
+   return (s,len); // Returning tuple
+}
+```
+
+```rust
+fn main() {
+   let s1 = String::from("Hello, world!");
+   let len = get_length(s1.clone()); // Cloning the string
+   // But this is an expensive operation because it will create new memory
+   println!("Length of the string '{}' is {}", s1, s2);
+}
+
+fn get_length(s: String) -> usize {
+   return s.len();
+}
+```
+##### Borrowing
+
+Borrowing is a way to pass a reference, instead of transferring ownership.
+
+```rust
+fn main() {
+   let s1 = String::from("Hello, world!");
+   let len = get_length(&s1); // Passing reference 
+   // 
+   println!("Length of the string '{}' is {}", s1, len);
+}
+
+fn get_length(s: &String) -> usize {
+   return s.len();
 }
 ```
 
