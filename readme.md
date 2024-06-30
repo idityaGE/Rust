@@ -443,3 +443,112 @@ fn get_reference(s: &String) -> &String {
     return s;
 }
 ```
+
+### Slices
+
+Slices are a reference to a part of a string or an array.
+
+```rust
+fn main() {
+    let s = String::from("Hello, world!");
+    let slice = &s[0..5];  // Slicing the string
+    println!("{}", slice);
+}
+```
+
+### Struct
+
+A struct is a custom data type that groups together named fields.
+
+```rust
+struct Employee {
+    name: String,
+    age: u8,
+    hired: bool,
+}
+
+fn main() {
+    let emp = Employee {
+        name: String::from("Adii"),
+        age: 20,
+        hired: true,
+    };
+    println!("Employee Name: {}\nEmployee Age: {}\nEmployee Hired: {}", emp.name, emp.age, emp.hired);
+}
+```
+
+### Enum
+
+An enum is a custom data type that can have multiple variants.
+
+```rust
+enum Color {
+    Red,
+    Green,
+    Blue,
+}
+
+fn main() {
+    let color = Color::Red;
+    match color {
+        Color::Red => println!("Red"),
+        Color::Green => println!("Green"),
+        Color::Blue => println!("Blue"),
+    }
+}
+```
+
+### Option
+
+The `Option` enum is used to handle the absence of a value.
+
+```rust
+fn main() {
+    let num: Option<i32> = Some(10);
+    match num {
+        Some(n) => println!("Number: {}", n),
+        None => println!("No value"),
+    }
+}
+```
+
+### Result
+
+The `Result` enum is used to handle errors.
+
+```rust
+fn main() {
+    let result: Result<i32, &str> = Ok(10);
+    match result {
+        Ok(n) => println!("Number: {}", n),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+```
+
+### Loops
+
+1. `loop`: Infinite loop
+2. `while`: Conditional loop
+3. `for`: Iterative loop
+
+```rust
+fn main() {
+    let mut i = 0;
+    loop {
+        if i == 5 {
+            break;
+        }
+        println!("{}", i);
+        i += 1;
+    }
+    i = 0;
+    while i < 5 {
+        println!("{}", i);
+        i += 1;
+    }
+    for i in 0..5 {
+        println!("{}", i);
+    }
+}
+```
