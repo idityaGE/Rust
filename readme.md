@@ -547,8 +547,42 @@ fn main() {
         println!("{}", i);
         i += 1;
     }
-    for i in 0..5 {
+    for i in 0..5 {  // 
         println!("{}", i);
+    }
+}
+```
+
+### Conditional Statements
+
+1. `if`: Single condition
+2. `if-else`: Two conditions
+3. `if-else if-else`: Multiple conditions
+4. `match`: Multiple conditions
+
+```rust
+fn main() {
+    let num = 10;
+    if num > 5 {
+        println!("Greater than 5");
+    }
+    if num > 5 {
+        println!("Greater than 5");
+    } else {
+        println!("Less than or equal to 5");
+    }
+    if num > 5 {
+        println!("Greater than 5");
+    } else if num < 5 {
+        println!("Less than 5");
+    } else {
+        println!("Equal to 5");
+    }
+    match num {
+        1 => println!("One"),
+        2 => println!("Two"),
+        3 => println!("Three"),
+        _ => println!("Other"),
     }
 }
 ```
