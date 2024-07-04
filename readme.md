@@ -428,6 +428,20 @@ fn main() {
 }
 ```
 
+#### Referencing and Derefencing
+
+- `&` is used to create a reference.
+- `*` is used to dereference a reference.
+
+```rust
+fn main() {
+    let x = 10;
+    let r = &x;  // Creating a reference
+    let y = *r;  // Dereferencing the reference
+    println!("x: {}, y: {}", x, y);
+}
+```
+
 ##### Dangling References
 
 A dangling reference is a reference that points to an invalid memory location.
