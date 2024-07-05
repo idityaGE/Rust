@@ -423,17 +423,29 @@ fn main() {
     let mut s = String::from("Hello, world!");
     let r1 = &s;  // Immutable reference
     let r2 = &s;  // Immutable reference
-    // let r3 = &mut s;  // Error 
+    // let r3 = &mut s;  // Error
     println!("r1: {}, r2: {}", r1, r2);
+}
+```
+
+```rust
+fn main() {
+    let mut x = 9;
+    let r1 = &mut x;
+    println!("r1: {}", r1);
+    let r2 = &mut x;
+    println!("r2: {}", r2);
+    // println!("r1: {}\nr2 = {}", r1, r2); // Error
+    // more than one mutable reference is not allowed at a time
 }
 ```
 
 #### Referencing and Derefencing
 
+> Note: Don't get confused with pointer, reference and dereference.
+
 - `&` is used to create a reference.
 - `*` is used to dereference a reference.
-
-
 
 ```rust
 fn main() {
@@ -443,6 +455,39 @@ fn main() {
     println!("x: {}, y: {}", x, y);
 }
 ```
+
+##### Auto Derefencing
+
+Rust automatically dereferences a reference when needed.
+like in the below example, we are directly using the value of the reference.
+Like when you are printing then rust automatically detect and directly print the value of x, But if you want to print the address or reference of x then you have to use `{:p}` to print the address of x.
+
+
+```rust
+fn main () {
+    let x = 10;
+    let y = &x; // Y is a reference to the value of x which is 10
+    println!("x: {}, y: {}", x, y); // Here we are directly using the value of y instead of dereferencing it (*y)
+    // If you want to see the address of x
+    println!("Address of x: {:p}, Address of x: {:p}", &x, y);
+}
+```
+But when not to use auto dereferencing. like in the below example, we are using the value of the reference. because we want to make changes in the value of x not in the address of x.
+
+```rust
+fn main() {
+    let mut x = 10;
+    x = x + 5;
+    {
+        let y = &mut x;
+        println!("Before change y: {}", *y);
+        *y = *y + 10;  // Dereferencing the reference to modify the value of x
+        println!("After change y: {}", *y);
+    } // The mutable borrow ends here
+    println!("After change - x: {}", x);
+}
+```
+
 
 ##### Dangling References
 
@@ -458,7 +503,7 @@ fn main() {
 fn get_reference(s: &String) -> &String {
     return s;
 }
-```
+````
 
 ### Slices
 
@@ -563,7 +608,7 @@ fn main() {
         println!("{}", i);
         i += 1;
     }
-    for i in 0..5 {  // 
+    for i in 0..5 {  //
         println!("{}", i);
     }
 }
@@ -602,6 +647,3 @@ fn main() {
     }
 }
 ```
-
-
-

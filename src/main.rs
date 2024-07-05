@@ -1,7 +1,10 @@
 fn main() {
-    let mut s = String::from("Hello, world!");
-    let r1 = &s;  // Immutable reference
-    let r2 = &s;  // Immutable reference
-    // let r3 = &mut s;  // Error
-    println!("r1: {}, r2: {}", r1, r2);
+    let x = 10;
+    let y = &x;
+    let z = add_num(y);  // Error
+    println!("x: {}, y: {}, z: {}", x, y, z);
+}
+
+fn add_num(num: &i32) -> i32 {
+    return num + 10;
 }
