@@ -1,10 +1,10 @@
 fn main() {
-    let x = 10;
-    let y = &x;
-    let z = add_num(y);  // Error
-    println!("x: {}, y: {}, z: {}", x, y, z);
+    let st = String::from("Hello, world!");
+    let len = get_length(&st);  // Passing reference
+    println!("Length of the string '{}' is {}", st, len);
 }
 
-fn add_num(num: &i32) -> i32 {
-    return num + 10;
+fn get_length(s: &String) -> usize {
+    // return (*s).len(); // Dereferencing the reference
+    return s.len(); // Auto dereferencing
 }

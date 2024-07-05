@@ -1,5 +1,7 @@
 ## Rusty
 
+### Tree of Topics
+
 ### Installation of Rust
 
 1. Windows
@@ -462,7 +464,6 @@ Rust automatically dereferences a reference when needed.
 like in the below example, we are directly using the value of the reference.
 Like when you are printing then rust automatically detect and directly print the value of x, But if you want to print the address or reference of x then you have to use `{:p}` to print the address of x.
 
-
 ```rust
 fn main () {
     let x = 10;
@@ -472,6 +473,20 @@ fn main () {
     println!("Address of x: {:p}, Address of x: {:p}", &x, y);
 }
 ```
+
+```rust
+fn main() {
+    let st = String::from("Hello, world!");
+    let len = get_length(&st);  // Passing reference
+    println!("Length of the string '{}' is {}", st, len);
+}
+
+fn get_length(s: &String) -> usize {
+    // return (*s).len(); // Dereferencing the reference
+    return s.len(); // Auto dereferencing
+}
+```
+
 But when not to use auto dereferencing. like in the below example, we are using the value of the reference. because we want to make changes in the value of x not in the address of x.
 
 ```rust
@@ -488,8 +503,21 @@ fn main() {
 }
 ```
 
+##### Reference vs Pointer
 
-##### Dangling References
+- A reference hold metadata about the reference, such as the type and lifetime and mutable or immutable.
+- A pointer only holds the memory address.
+
+```rust
+fn main() {
+    let x = 10;
+    let r = &x;  // Reference
+    let p = &x as *const i32;  // Pointer
+    println!("r: {:p}, p: {:p}", r, p);
+}
+```
+
+#### Dangling References
 
 A dangling reference is a reference that points to an invalid memory location.
 
@@ -503,9 +531,9 @@ fn main() {
 fn get_reference(s: &String) -> &String {
     return s;
 }
-````
+```
 
-### Slices
+#### Slices
 
 Slices are a reference to a part of a string or an array.
 
@@ -517,7 +545,7 @@ fn main() {
 }
 ```
 
-### Struct
+#### Struct
 
 A struct is a custom data type that groups together named fields.
 
