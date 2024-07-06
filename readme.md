@@ -493,7 +493,7 @@ But when not to use auto dereferencing. like in the below example, we are using 
 fn main() {
     let mut x = 10;
     x = x + 5;
-    {
+    { // The mutable borrow starts here
         let y = &mut x;
         println!("Before change y: {}", *y);
         *y = *y + 10;  // Dereferencing the reference to modify the value of x
