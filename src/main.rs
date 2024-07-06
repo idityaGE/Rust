@@ -1,10 +1,9 @@
 fn main() {
-    let st = String::from("Hello, world!");
-    let len = get_length(&st);  // Passing reference
-    println!("Length of the string '{}' is {}", st, len);
+    let r = get_reference();
+    println!("{}", r);
 }
 
-fn get_length(s: &String) -> usize {
-    // return (*s).len(); // Dereferencing the reference
-    return s.len(); // Auto dereferencing
+fn get_reference() -> &String {
+    let s = String::from("Hello, world!");
+    return &s;
 }

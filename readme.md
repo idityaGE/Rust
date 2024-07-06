@@ -540,13 +540,13 @@ A dangling reference is a reference that points to an invalid memory location.
 
 ```rust
 fn main() {
-    let s = String::from("Hello, world!");
-    let r = get_reference(&s);
+    let r = get_reference();
     println!("{}", r);
 }
 
-fn get_reference(s: &String) -> &String {
-    return s;
+fn get_reference() -> &String {
+    let s = String::from("Hello, world!");
+    return &s;
 }
 ```
 
