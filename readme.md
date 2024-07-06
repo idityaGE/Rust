@@ -1,6 +1,23 @@
 ## Rusty
 
-### Tree of Topics
+## Table of Contents
+- [Installation](#installation-of-rust)
+- [Tools](#tools)
+- [Setup](#setup)
+- [References](#references)
+- [Folder Structure](#folder-structure)
+- [Hello World](#hello-world)
+- [Data Types](#data-types)
+- [Examples](#example)
+- [Functions](#functions)
+- [Ownership](#ownership)
+- [Borrowing](#borrowing)
+- [Struct](#struct)
+- [Enum](#enum)
+- [Option](#option)
+- [Result](#result)
+- [Loops](#loops)
+- [Conditional Statements](#conditional-statements)
 
 ### Installation of Rust
 
@@ -382,7 +399,7 @@ fn get_length(s: String) -> usize {
 }
 ```
 
-##### Borrowing [ Reference ]
+##### Borrowing
 
 Borrowing is a way to pass a reference, instead of transferring ownership.
 
