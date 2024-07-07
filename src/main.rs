@@ -3,7 +3,7 @@ fn main() {
     println!("{}", r);
 }
 
-fn get_reference() -> &String {
+fn get_reference() -> String {
     let s = String::from("Hello, world!");
-    return &s;
+    return s;
 }
