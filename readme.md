@@ -583,6 +583,7 @@ fn main() {
     let first = arr[0];
     let second = arr[1];
     println!("First: {}, Second: {}", first, second);
+    println!("Length: {}", arr.len());
 }
 ```
 
