@@ -550,6 +550,44 @@ fn get_reference() -> &String {
 }
 ```
 
+#### Float, Boolean, Character
+
+```rust
+fn main() {
+    let pi: f32 = 3.14;
+    let g = 9.8; // by default f64
+    println!("{}", pi);
+    println!("{}", g);
+
+    let me: bool = true;
+    let you = false; // by default bool
+    let us = me && you;
+    println!("{}", me);
+    println!("{}", you);
+    println!("{}", us);
+
+    let char: char = 'A';
+    let emo = '😀'; // 4 bytes
+    println!("{}", char);
+    println!("{}", emo);
+}
+```
+
+#### Array
+
+An array is a fixed-size collection of elements of the same type.
+
+```rust
+fn main() {
+    let arr: [i32; 5] = [10, 20, 30, 40, 50];
+    let first = arr[0];
+    let second = arr[1];
+    println!("First: {}, Second: {}", first, second);
+}
+```
+
+
+
 #### Slices
 
 Slices are a reference to a part of a string or an array.
