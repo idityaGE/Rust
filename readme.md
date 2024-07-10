@@ -579,13 +579,121 @@ An array is a fixed-size collection of elements of the same type.
 
 ```rust
 fn main() {
-    let arr: [i32; 5] = [10, 20, 30, 40, 50];
-    let first = arr[0];
-    let second = arr[1];
-    println!("First: {}, Second: {}", first, second);
-    println!("Length: {}", arr.len());
+    let _str_arr: [&str; 3] = ["Hello", "World", "!"];
+    let mut arr: [i32; 5] = [1, 2, 3, 4, 5];
+    println!("{:?}", arr); // [1,2,3,4,5]
+    let _first = arr[0];
+    arr[2] = 9;
+    let len = arr.len();
+    let mut i = 0;
+    while i < len {
+        println!("{}", arr[i]);
+        i += 1;
+    }
+    for i in 0..=4 { // for(let i = 0; i <= 4; i++)
+        println!("{}", arr[i]);
+    }
+    for i in 0..len { // for(let i = 0; i < len; i++))
+        println!("{}", arr[i]);
+    }
+    for i in arr.iter() {
+        println!("{}", i);
+    }
+    for i in &arr {
+        println!("{}", i);
+    }
+    for i in arr.iter_mut() {
+        *i += 1;
+    }
+    println!("{:?}", arr); // [2,3,4,5,6]
+    let arr1;
+    arr1 = [1, 2, 3, 4, 5];
+    let arr3 = [3; 5]; // [3,3,3,3,3]
+    println!("{:?}", arr3);
+    let _arr5 = &arr1[1..4];   // [2,3,4]
+    let _arr12 = &arr1[1..=4]; // [2,3,4,5]
+    let _arr6 = &arr1[1..];    // [2,3,4,5]
+    let _arr7 = &arr1[..4];    // [1,2,3,4]
+    let _arr8 = &arr1[..];     // [1,2,3,4,5] // &arr1 == &arr1[..]
+    let _arr9 = &arr; // [1,2,3,4,5]
+    let arr10 = &arr as *const i32;
+    println!("{:?}", arr10);
+    let arr11 = &arr as *const [i32; 5];
+    println!("{:?}", arr11);
 }
 ```
+##### How to pass an Array to a function
+
+1. By passing the array to a function
+
+```rust
+fn main() {
+    let str_arr: [&str; 5] = ["Hello", "World", "from", "Rust", "Programming"];
+    // Array is fixed size and assigned at compile time and Heap memory concept does not apply to it
+    // So, we can pass it to a function without any issue and it will not transfer the ownership
+    print_array(str_arr); // passing array to a function
+    // By passing this way it will create an copy of this array and pass it to the function and it will be expensive task and it will not make any changes in the original array in the main function
+    println!("\nmain fn arr = {:?}", str_arr);
+}
+
+fn print_array(mut arr: [&str; 5]) {
+    arr[2] = "!,"; // making changes here will not affect the original array in main fn because it is passed by value which is a copy of the original array
+    for &i in arr.iter() {
+        print!("{} ", i);
+    }
+}
+```
+
+2. By passing the reference of the array to a function
+
+```rust
+fn main() {
+    let mut str_arr: [&str; 5] = ["Hello", "World", "from", "Rust", "Programming"];
+    print_array(& mut str_arr); 
+    println!("\nmain fn arr = {:?}", str_arr);
+}
+
+fn print_array(arr: & mut [&str; 5]) {
+    arr[2] = "!,";
+    for &i in arr.iter() {
+        print!("{} ", i);
+    }
+}
+```
+
+#### Vector
+
+A vector is a growable, heap-allocated collection of elements of the same type.
+
+```rust
+fn main() {
+    let mut vec: Vec<i32> = Vec::new();
+    vec.push(10);
+    vec.push(20);
+    vec.push(30);
+    println!("{:?}", vec);
+    let first = vec[0];
+    let second = vec.get(1);
+    println!("First: {}, Second: {:?}", first, second);
+    for i in &vec {
+        println!("{}", i);
+    }
+    for i in vec.iter() {
+        println!("{}", i);
+    }
+    for i in vec.iter_mut() {
+        *i += 1;
+    }
+    println!("{:?}", vec);
+    let vec1 = vec![1, 2, 3, 4, 5];
+    println!("{:?}", vec1);
+    let vec2 = vec1.clone();
+    println!("{:?}", vec2);
+    let vec3 = &vec1[1..4];
+    println!("{:?}", vec3);
+}
+```
+
 
 
 
