@@ -1,6 +1,7 @@
 ## Rusty
 
 ## Table of Contents
+
 - [Installation](#installation-of-rust)
 - [Tools](#tools)
 - [Setup](#setup)
@@ -622,6 +623,19 @@ fn main() {
     println!("{:?}", arr11);
 }
 ```
+
+```rust
+fn main() {
+    // let size = 5; // non-constant value // Error {E0435}
+    const size: usize = 5; // Change the type of `size` to `usize`
+    let arr: [i32; size] = [1, 2, 3, 4, 5];
+    // [type, constant value]
+    for i in 0..size {
+        println!("{}", arr[i]);
+    }
+}
+```
+
 ##### How to pass an Array to a function
 
 1. By passing the array to a function
@@ -649,7 +663,7 @@ fn print_array(mut arr: [&str; 5]) {
 ```rust
 fn main() {
     let mut str_arr: [&str; 5] = ["Hello", "World", "from", "Rust", "Programming"];
-    print_array(& mut str_arr); 
+    print_array(& mut str_arr);
     println!("\nmain fn arr = {:?}", str_arr);
 }
 
@@ -667,7 +681,8 @@ A vector is a growable, heap-allocated collection of elements of the same type.
 
 ```rust
 fn main() {
-    let mut vec: Vec<i32> = Vec::new();
+    // let mut vec: Vec<i32> = Vec::new();
+    let mut vec = Vec::<i32>::new();
     vec.push(10);
     vec.push(20);
     vec.push(30);
@@ -694,8 +709,107 @@ fn main() {
 }
 ```
 
+##### How to pass a Vector to a function
+
+1. By passing the vector to a function
+
+```rust
+fn main() {
+    let vec: Vec<i32> = vec![1, 2, 3, 4, 5];
+    // Its a Dyanamic size and Heap allocated memory
+    print_vector(vec); // passing vector to a function
+    // Here it will transfer the ownership of the vector to the function and it will not be available in the main function
+    // println!("\nmain fn vec = {:?}", vec);  // Error
+}
+
+fn print_vector(mut vec: Vec<i32>) { // Now the ownership of the vector is transferred to this function
+    vec[2] = 10; // Changing the value of the vector
+    for &i in vec.iter() {
+        print!("{} ", i);
+    }
+}
+```
+
+2. By passing the clone of the vector to a function
+
+```rust
+fn main() {
+    let vec: Vec<i32> = vec![1, 2, 3, 4, 5];
+    print_vector(vec.clone()); // passing clone of the vector to a function
+    // its a expensive operation because it will create a new memory
+    println!("\nmain fn vec = {:?}", vec);
+}
+
+fn print_vector(mut vec: Vec<i32>) {
+    vec[2] = 10;
+    for &i in vec.iter() {
+        print!("{} ", i);
+    }
+}
+```
+
+3. By passing the reference of the vector to a function
+
+```rust
+fn main() {
+    let mut vec: Vec<i32> = vec![1, 2, 3, 4, 5];
+    print_vector(&mut vec);
+    println!("\n{:?}", vec);
+    let size: usize = vec.capacity(); // Getting the capacity of the vector
+    // Capacity is the number of elements that the vector can hold without reallocation
+    println!("Capacity of the vector: {}", size);
+}
+
+fn print_vector(vec: &mut Vec<i32>) {
+    // Now the ownership of the vector is transferred to this function
+    vec.push(10); // Changing the value of the vector
+    for &i in vec.iter() {
+        print!("{} ", i);
+    }
+}
+```
+
+#### Type Inference
+
+Rust can infer the type of a variable based on the value assigned to it.
+If you want to know the type of a variable, you can use the `type_of` function from the `std::any` module.
+
+```rust
+fn print_type_of<T>(_: &T) {
+    println!("{}", std::any::type_name::<T>())
+}
+
+fn main() {
+    let s = "Hello";
+    let i = 42;
+
+    print_type_of(&s); // &str
+    print_type_of(&i); // i32
+    print_type_of(&main); // playground::main
+    print_type_of(&print_type_of::<i32>); // playground::print_type_of<i32>
+    print_type_of(&{ || "Hi!" }); // playground::main::{{closure}}
+}
+```
+
+#### Shadowing
+
+Shadowing is a way to change the value of a variable without changing its type.
+
+```rust
+fn main() {
+    let x = 32;
+    let x = 9.8;      // Shadowing
+    let x = "hello";  // Shadowing
+    println!("{}",x); // hello
 
 
+    let m = 10;
+    let n = 3;
+    let b = m / n; // 3
+    let g : f32 = m as f32 / n as f32; // 3.3333333
+    println!("{}",g);
+}
+```
 
 #### Slices
 
