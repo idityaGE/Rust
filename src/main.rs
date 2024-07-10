@@ -1,12 +1,16 @@
 fn main() {
-    let mut str_arr: [&str; 5] = ["Hello", "World", "from", "Rust", "Programming"];
-    print_array(& mut str_arr); 
-    println!("\nmain fn arr = {:?}", str_arr);
-}
+    let mut vec: Vec<i32> = Vec::new();
+    let mut _vec2 = Vec::<i32>::new();
+    vec.push(1);
+    vec.push(2);
+    vec.push(3);
+    println!("{:?}", vec);
 
-fn print_array(arr: & mut [&str; 5]) {
-    arr[2] = "!,";
-    for &i in arr.iter() {
-        print!("{} ", i);
-    }
+    let mut vec3 = vec![1, 2, 3];
+    println!("{:?}", vec3);
+    vec3.push(4);
+    vec3.push(5);
+    vec3.pop();
+
+
 }
