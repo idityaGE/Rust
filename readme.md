@@ -902,6 +902,7 @@ fn main() {
 ```rust
 fn main() {
     let mut i = 0;
+    // Infinite loop
     loop {
         if i == 5 {
             break;
@@ -910,12 +911,19 @@ fn main() {
         i += 1;
     }
     i = 0;
+    // Conditional loop
     while i < 5 {
         println!("{}", i);
         i += 1;
     }
-    for i in 0..5 {  //
+    // Iterative loop
+    for i in 0..5 {  // for(let i = 0; i < 5; i++)
         println!("{}", i);
+    }
+    // while let
+    let mut stack = vec![1, 2, 3, 4, 5];
+    while let Some(item) = stack.pop() {
+        println!("Popped item: {}", item);
     }
 }
 ```
