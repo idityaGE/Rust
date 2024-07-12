@@ -961,3 +961,103 @@ fn main() {
     }
 }
 ```
+
+#### Some
+
+Some is a variant of the Option enum that contains a value.
+
+```rust
+fn main() {
+    let num = Some(10);
+    match num {
+        Some(n) => println!("Number: {}", n),
+        None => println!("No value"),
+    }
+}
+```
+
+#### None
+
+None is a variant of the Option enum that does not contain a value.
+
+```rust
+fn main() {
+    let num: Option<i32> = None;
+    match num {
+        Some(n) => println!("Number: {}", n),
+        None => println!("No value"),
+    }
+}
+```
+
+#### Ok
+
+Ok is a variant of the Result enum that contains a value.
+
+```rust
+fn main() {
+    let result: Result<i32, &str> = Ok(10);
+    match result {
+        Ok(n) => println!("Number: {}", n),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+```
+
+#### Err
+
+Err is a variant of the Result enum that contains an error.
+
+```rust
+fn main() {
+    let result: Result<i32, &str> = Err("Error");
+    match result {
+        Ok(n) => println!("Number: {}", n),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+```
+
+#### If Let
+
+If let is a shorthand for matching an Option or Result.
+
+```rust
+fn main() {
+    let num = Some(10);
+    if let Some(n) = num {
+        println!("Number: {}", n);
+    }
+}
+```
+
+```rust
+fn main() {
+    let result: Result<i32, &str> = Ok(10);
+    if let Ok(n) = result {
+        println!("Number: {}", n);
+    }
+}
+```
+
+#### While Let
+
+While let is a shorthand for matching an Option or Result in a loop.
+
+```rust
+fn main() {
+    let mut stack = vec![1, 2, 3, 4, 5];
+    while let Some(item) = stack.pop() {
+        println!("Popped item: {}", item);
+    }
+}
+```
+
+```rust
+fn main() {
+    let mut stack = vec![1, 2, 3, 4, 5];
+    while let Some(item) = stack.pop() {
+        println!("Popped item: {}", item);
+    }
+}
+```
