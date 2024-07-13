@@ -1053,4 +1053,21 @@ fn main() {
 }
 ```
 
+### Generics
 
+Generics allow you to define functions, structs, and enums that can work with any data type.
+
+```rust
+fn main() {
+    let num1 = 10;
+    let num2 = 20;
+    let result = add(num1, num2);
+    println!("Sum: {}", result);
+}
+
+fn add<T>(num1: T, num2: T) -> T {
+    return num1 + num2;
+}
+```
+
+```rust
